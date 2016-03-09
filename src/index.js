@@ -1,38 +1,7 @@
 var nodePath = require('path');
-var fs = require('fs');
+var lassoCachingFS = require('lasso-caching-fs');
 
-var FS_READ_OPTIONS = { encoding: 'utf8' };
-
-var packageCache = {};
 var rootPackagesCache = {};
-
-
-function tryPackage(path) {
-    var pkg = packageCache[path];
-
-    if (pkg !== undefined) {
-        return pkg;
-    }
-
-    var pkgJSON;
-
-    try {
-        pkgJSON = fs.readFileSync(path, FS_READ_OPTIONS);
-    } catch(e) {
-    }
-
-    if (pkgJSON) {
-        pkg = JSON.parse(pkgJSON);
-        pkg.__filename = path;
-        pkg.__dirname = nodePath.dirname(path);
-    } else {
-        pkg = null;
-    }
-
-    packageCache[path] = pkg;
-
-    return pkg;
-}
 
 function getRootPackage(dirname) {
     var rootPkg = rootPackagesCache[dirname];
@@ -43,7 +12,7 @@ function getRootPackage(dirname) {
     var currentDir = dirname;
     while (true) {
         var packagePath = nodePath.join(currentDir, 'package.json');
-        var pkg = tryPackage(packagePath);
+        var pkg = lassoCachingFS.readPackageSync(packagePath);
         if (pkg && pkg.name) {
             rootPkg = pkg;
             break;
