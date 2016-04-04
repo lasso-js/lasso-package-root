@@ -3,17 +3,17 @@
   "description": "Find the root package or directory associated with a path",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lasso-js/lasso-package-root.git"
+    "url": "git+https://github.com/lasso-js/lasso-package-root.git"
   },
   "scripts": {
     "test": "npm run mocha && npm run jshint",
-    "mocha": "node_modules/.bin/mocha --ui bdd --reporter spec test/",
-    "jshint": "node_modules/.bin/jshint src/"
+    "mocha": "mocha --ui bdd --reporter spec test/",
+    "jshint": "jshint src/"
   },
   "author": "Patrick Steele-Idem <pnidem@gmail.com>",
   "maintainers": "Patrick Steele-Idem <pnidem@gmail.com>",
   "dependencies": {
-      "lasso-caching-fs": "^1.0.0"
+    "lasso-caching-fs": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -26,5 +26,12 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "bugs": {
+    "url": "https://github.com/lasso-js/lasso-package-root/issues"
+  },
+  "homepage": "https://github.com/lasso-js/lasso-package-root#readme",
+  "directories": {
+    "test": "test"
+  }
 }
